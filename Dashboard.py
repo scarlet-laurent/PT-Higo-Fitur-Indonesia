@@ -47,7 +47,7 @@ if uploaded_file is not None:
     st.sidebar.subheader("Filter Data")
 
     def selectbox_with_all(label, options):
-        selected = st.sidebar.selectbox(f"Pilihan {label}", options=["All"] + sorted(list(set(options))))
+        selected = st.sidebar.selectbox(f"Pilihan {label}", options=["All"] + sorted(list(set(options)))))
         return options if selected == "All" else [selected]
 
     lokasi_filter = selectbox_with_all("Nama Lokasi", df['Nama Lokasi'])
@@ -92,7 +92,7 @@ if uploaded_file is not None:
 
     # Distribusi Usia Pengguna
     st.write("### Distribusi Usia Pengguna")
-    fig, ax = plt.subplots(figsize=(6, 4))  # Ukuran visualisasi disesuaikan
+    fig, ax = plt.subplots(figsize=(5, 3))  # Ukuran visualisasi disesuaikan
     ax.hist(df['Usia'], bins=20, color='skyblue', edgecolor='black')
     ax.set_xlabel("Usia")
     ax.set_ylabel("Jumlah")
@@ -108,7 +108,7 @@ if uploaded_file is not None:
     # Persentase Penggunaan Merk HP
     st.write("### Persentase Penggunaan Merk HP")
     merk_counts = df['Merk HP'].value_counts()
-    fig2, ax2 = plt.subplots(figsize=(6, 4))  # Ukuran visualisasi disesuaikan
+    fig2, ax2 = plt.subplots(figsize=(5, 3))  # Ukuran visualisasi disesuaikan
     ax2.pie(merk_counts, labels=merk_counts.index, autopct='%1.1f%%', startangle=90)
     ax2.axis('equal')
     st.pyplot(fig2)
@@ -127,7 +127,7 @@ if uploaded_file is not None:
         x=alt.X('Minat Digital:Q', title='Rata-rata Minat Digital'),
         y=alt.Y('Nama Lokasi:N', sort='-x'),
         color=alt.Color('Nama Lokasi:N', legend=None)
-    ).properties(width=600, height=350)  # Ukuran visualisasi disesuaikan
+    ).properties(width=500, height=300)  # Ukuran visualisasi disesuaikan
     st.altair_chart(chart)
 
     with st.expander("Lihat Tabel Rata-rata Minat Digital"):
@@ -142,7 +142,7 @@ if uploaded_file is not None:
         x=alt.X('Jumlah:Q', title='Jumlah Pengguna'),
         y=alt.Y('Kategori Generasi:N', sort='-x'),
         color=alt.Color('Kategori Generasi:N', legend=None)
-    ).properties(width=600, height=350)  # Ukuran visualisasi disesuaikan
+    ).properties(width=500, height=300)  # Ukuran visualisasi disesuaikan
     st.altair_chart(chart_gen)
 
     with st.expander("Lihat Tabel Jumlah per Generasi"):
@@ -158,7 +158,7 @@ if uploaded_file is not None:
         size='Jumlah:Q',
         color='Tipe Lokasi:N',
         tooltip=['Nama Lokasi', 'Tipe Lokasi', 'Jumlah']
-    ).properties(width=600, height=350)  # Ukuran visualisasi disesuaikan
+    ).properties(width=500, height=300)  # Ukuran visualisasi disesuaikan
     st.altair_chart(chart_loc)
 
     with st.expander("Lihat Tabel Jumlah per Lokasi dan Tipe Lokasi"):
