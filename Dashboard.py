@@ -164,3 +164,7 @@ if uploaded_file is not None:
     with st.expander("Lihat Tabel Jumlah per Lokasi dan Tipe Lokasi"):
         st.dataframe(lokasi_tipe)
         st.download_button("📥 Unduh Tabel Lokasi & Tipe", lokasi_tipe.to_csv(index=False).encode('utf-8'), "lokasi_tipe.csv", "text/csv")
+
+    st.markdown("---")
+    st.subheader("📄 Data Lengkap")
+    st.dataframe(df.reset_index(drop=True))
