@@ -13,7 +13,7 @@ st.set_page_config(
 )
 
 # Sidebar logo
-st.sidebar.image('Higo.jng', use_container_width=True)
+st.sidebar.image('Higo.jpg', use_container_width=True)
 
 # Judul
 st.title("📊 Dashboard Analisis Pengguna Digital - PT Higo Fitur Indonesia")
