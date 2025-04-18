@@ -47,7 +47,7 @@ if uploaded_file is not None:
     st.sidebar.subheader("Filter Data")
 
     def selectbox_with_all(label, options):
-        selected = st.sidebar.selectbox(f"Pilih {label}", options=["All"] + sorted(list(set(options))))
+        selected = st.sidebar.selectbox(f"Pilihan {label}", options=["All"] + sorted(list(set(options))))
         return options if selected == "All" else [selected]
 
     lokasi_filter = selectbox_with_all("Nama Lokasi", df['Nama Lokasi'])
@@ -63,10 +63,12 @@ if uploaded_file is not None:
         df['Merk HP'].isin(merk_hp_filter)
     ]
 
+    # Ringkasan Data (tetap pada 3 kolom)
     st.subheader("Ringkasan Data")
-    st.markdown(f"<h4 style='color:red;'>Rata-rata Usia: <b>{df['Usia'].mean():.2f} Tahun</b></h4>", unsafe_allow_html=True)
-    st.markdown(f"<h4 style='color:red;'>Rata-rata Minat Digital: <b>{df['Minat Digital'].mean():.2f}</b></h4>", unsafe_allow_html=True)
-    st.markdown(f"<h4 style='color:red;'>Jumlah Pengguna: <b>{len(df)}</b></h4>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns(3)
+    col1.markdown(f"<h4 style='color:red;'>Rata-rata Usia:<br> <b>{df['Usia'].mean():.2f} Tahun</b></h4>", unsafe_allow_html=True)
+    col2.markdown(f"<h4 style='color:red;'>Rata-rata Minat Digital:<br> <b>{df['Minat Digital'].mean():.2f}</b></h4>", unsafe_allow_html=True)
+    col3.markdown(f"<h4 style='color:red;'>Jumlah Pengguna:<br> <b>{len(df)}</b></h4>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -84,11 +86,13 @@ if uploaded_file is not None:
     st.write(f"Interval kepercayaan 95%: **{lower_bound:.2f} - {upper_bound:.2f}** tahun")
 
     st.markdown("---")
+
+    # Visualisasi
     st.subheader("📊 Visualisasi Data")
 
     # Distribusi Usia Pengguna
     st.write("### Distribusi Usia Pengguna")
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(6, 4))  # Ukuran visualisasi disesuaikan
     ax.hist(df['Usia'], bins=20, color='skyblue', edgecolor='black')
     ax.set_xlabel("Usia")
     ax.set_ylabel("Jumlah")
@@ -104,7 +108,7 @@ if uploaded_file is not None:
     # Persentase Penggunaan Merk HP
     st.write("### Persentase Penggunaan Merk HP")
     merk_counts = df['Merk HP'].value_counts()
-    fig2, ax2 = plt.subplots()
+    fig2, ax2 = plt.subplots(figsize=(6, 4))  # Ukuran visualisasi disesuaikan
     ax2.pie(merk_counts, labels=merk_counts.index, autopct='%1.1f%%', startangle=90)
     ax2.axis('equal')
     st.pyplot(fig2)
@@ -123,7 +127,7 @@ if uploaded_file is not None:
         x=alt.X('Minat Digital:Q', title='Rata-rata Minat Digital'),
         y=alt.Y('Nama Lokasi:N', sort='-x'),
         color=alt.Color('Nama Lokasi:N', legend=None)
-    ).properties(width=700, height=400)
+    ).properties(width=600, height=350)  # Ukuran visualisasi disesuaikan
     st.altair_chart(chart)
 
     with st.expander("Lihat Tabel Rata-rata Minat Digital"):
@@ -138,7 +142,7 @@ if uploaded_file is not None:
         x=alt.X('Jumlah:Q', title='Jumlah Pengguna'),
         y=alt.Y('Kategori Generasi:N', sort='-x'),
         color=alt.Color('Kategori Generasi:N', legend=None)
-    ).properties(width=700, height=300)
+    ).properties(width=600, height=350)  # Ukuran visualisasi disesuaikan
     st.altair_chart(chart_gen)
 
     with st.expander("Lihat Tabel Jumlah per Generasi"):
@@ -154,7 +158,7 @@ if uploaded_file is not None:
         size='Jumlah:Q',
         color='Tipe Lokasi:N',
         tooltip=['Nama Lokasi', 'Tipe Lokasi', 'Jumlah']
-    ).properties(width=700, height=400)
+    ).properties(width=600, height=350)  # Ukuran visualisasi disesuaikan
     st.altair_chart(chart_loc)
 
     with st.expander("Lihat Tabel Jumlah per Lokasi dan Tipe Lokasi"):
